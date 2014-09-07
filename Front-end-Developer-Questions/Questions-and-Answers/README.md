@@ -378,12 +378,20 @@ HTML5？
 		（1）有两种， IE 盒子模型、标准 W3C 盒子模型；IE的content部分包含了 border 和 pading;
 
 		（2）盒模型： 内容(content)、填充(padding)、边界(margin)、 边框(border).
+		
+	注解：
+	
+	我觉得应该细说是三种盒模型，Flexible Box也即是弹性盒模型。
+	
+	弹性盒模型是指对父元素空间分割的一种模式，通过添加几个参数就可以简单的实现grid的效果，简直赞。
+	
+	https://developer.mozilla.org/zh-CN/docs/CSS/Tutorials/Using_CSS_flexible_boxes
 
 
 
 - CSS 选择符有哪些？哪些属性可以继承？优先级算法如何计算？ CSS3新增伪类有那些？
 
-		*   1.id选择器（ # myid）
+		*   	1.id选择器（ # myid）
 			2.类选择器（.myclassname）
 			3.标签选择器（div, h1, p）
 			4.相邻选择器（h1 + p）
@@ -401,13 +409,15 @@ HTML5？
 
 		*   载入样式以最后载入的定位为准;
 
-	优先级为:
+		优先级为:
 		  
 		   !important >  id > class > tag  
 		  
 		   important 比 内联优先级高
+		   
+	
 
-	CSS3新增伪类举例：
+		CSS3新增伪类举例：
 
 		p:first-of-type	选择属于其父元素的首个 <p> 元素的每个 <p> 元素。
 		p:last-of-type	选择属于其父元素的最后 <p> 元素的每个 <p> 元素。
@@ -417,9 +427,20 @@ HTML5？
  	    :enabled  :disabled 控制表单控件的禁用状态。
 		:checked        单选框或复选框被选中。
 
+	注解：
+	
+	选择器部分，子选择器中，应该是一个大于号……
+	
+	选择器里也有比较好玩的，比如那个相邻选择器，比如要让整个列表的前三项特殊样式。
+	
+	可以li,li+li,li+li+li一个样式，li+li+li+li一个样式……
+	
+	选择器的优先度遵循这样一个原则：范围原则，比如tag选择器的范围就很大，相对class的就少很多，id则是整个页面中唯一的。
+	
+	关于important，请务必记住，因为它的优先度最高，因此当整个工程量比较复杂的时候，尽可能不要使用这个，会造成混乱。
+	
 
 - 如何居中div？如何居中一个浮动元素？
-
 
 	*  给div设置一个宽度，然后添加margin:0 auto属性
 		 
@@ -434,51 +455,82 @@ HTML5？
 			  确定容器的宽高 宽500 高 300 的层
 			  设置层的外边距
 			 
-		     .div { 
+		     	.div { 
 			  Width:500px ; height:300px;//高度可以不设
 			  Margin: -150px 0 0 -250px;
 			  position:relative;相对定位
-              background-color:pink;//方便看效果
+              		  background-color:pink;//方便看效果
 			  left:50%;
 			  top:50%;
 			} 
+	
+	注解：
+
+	居中元素是老考题了，最重要的一点是需要计算子元素和父元素的位置。
+	
+	在父元素是有宽度的前提下，经过计算，可以得出这个效果。
+	
+	还有一种办法，就是给元素加一个百分比的宽度，margin-left亦然。
 
 
 - 列出display的值，说明他们的作用。position的值， relative和absolute定位原点是？
  
-	
 	      1.   
-	      block 象块类型元素一样显示。
-		  none 缺省值。象行内元素类型一样显示。
-		  inline-block 象行内元素一样显示，但其内容象块类型元素一样显示。
-		  list-item 象块类型元素一样显示，并添加样式列表标记。
+	      	block 象块类型元素一样显示。
+		none 缺省值。象行内元素类型一样显示。
+		inline-block 象行内元素一样显示，但其内容象块类型元素一样显示。
+		list-item 象块类型元素一样显示，并添加样式列表标记。
 	  
 	      2. 
-		  *absolute	
-				生成绝对定位的元素，相对于 static 定位以外的第一个父元素进行定位。 
+		*absolute	
+			生成绝对定位的元素，相对于 static 定位以外的第一个父元素进行定位。 
 	
-		  *fixed （老IE不支持）
-				生成绝对定位的元素，相对于浏览器窗口进行定位。 
+		*fixed （老IE不支持）
+			生成绝对定位的元素，相对于浏览器窗口进行定位。 
 	
-		  *relative	
-				生成相对定位的元素，相对于其正常位置进行定位。 
+		*relative	
+			生成相对定位的元素，相对于其正常位置进行定位。 
 	
-		  * static	默认值。没有定位，元素出现在正常的流中
-		  *（忽略 top, bottom, left, right z-index 声明）。
+		* static	默认值。没有定位，元素出现在正常的流中
+		*（忽略 top, bottom, left, right z-index 声明）。
 	
-		  * inherit	规定从父元素继承 position 属性的值。
+		* inherit	
+		 	规定从父元素继承 position 属性的值。
+
+	注解：
+	
+	display部分前文有说过。
+	
+	position里比较容易混的是absolute和fixed，简而言之的讲，fixed用来显示页面头部，页面脚部的固定内容，在使用fixed时候，其他的内容将会无视fixed元素的高度，所以为了正常显示，请给后面内容加一个padding-top。
+
 	  
 - CSS3有哪些新特性？
 
-  		  CSS3实现圆角（border-radius:8px），阴影（box-shadow:10px），
-		  对文字加特效（text-shadow、），线性渐变（gradient），旋转（transform）
-          transform:rotate(9deg) scale(0.85,0.90) translate(0px,-30px) skew(-9deg,0deg);//旋转,缩放,定位,倾斜
-          增加了更多的CSS选择器  多背景 rgba 
+  		CSS3实现圆角（border-radius:8px），阴影（box-shadow:10px），
+		对文字加特效（text-shadow、），线性渐变（gradient），旋转（transform）
+          	transform:rotate(9deg) scale(0.85,0.90) translate(0px,-30px) skew(-9deg,0deg);//旋转,缩放,定位,倾斜
+          	增加了更多的CSS选择器  多背景 rgba 
+          	
+        注解：
+        
+        新特性都能写好几本书了……简而言之……强化了页面的形状的变形和动画效果，增加了更多的伪类选择器，背景选项也大大增强了。
+        
 
 - 一个满屏 品 字布局 如何设计?
 
+	注解：
+	
+	……这个题……
+	
+	三个div，第一个宽度100%，第二个和第三个浮动，宽度自定义，加起来不大于100%就行。
+
 - 经常遇到的CSS的兼容性有哪些？原因，解决方法是什么？
 
+	注解：
+	
+	css兼容性可比html的多多了……
+	
+	ie6的盒模型不一样，一些新属性的浏览器实现不一样，需要加私有化前缀。
 
 
 - 为什么要初始化CSS样式。
@@ -505,12 +557,33 @@ HTML5？
 		fieldset, img { border:0; }
 		button, input, select, textarea { font-size:100%; }
 		table { border-collapse:collapse; border-spacing:0; } 
+		
+	注解：
+	
+	前文提过reset，这里就是……
 
 
 
 - absolute的containing block计算方式跟正常流有什么不同？
+	
+	注解：
+
+	没看懂题……absolute的计算是按照static 定位以外的第一个父元素进行定位。
+	
 
 - position跟display、margin collapse、overflow、float这些特性相互叠加后会怎么样？
+
+	注解：
+	
+	我之前还真不知道这个问题……以下是我的测试结果：
+	
+	http://runjs.cn/code/zjz5apom
+	
+	从结果中可以看出，absolute和fixed直接让一个元素变成了inline-block的元素，所以display,float是没用的，margin等是有用的。
+	
+	relative只是对原来元素的一个位移，所以这些属性都能用。
+	
+	static很生猛，直接无视了那些属性……
 
 - 对BFC规范的理解？
 
@@ -539,19 +612,55 @@ HTML5？
 		} 
 		
 		如果权重相同，则最后定义的样式会起作用，但是应该避免这种情况出现
+		
+	注解：
+	
+	这样子算太痛苦……还是请记住范围原则。
 
 
 - 解释下浮动和它的工作原理？清除浮动的技巧
 
+	注解：
+	
+	工作原理其实我的观点是这样的：根据一定的规则，将浮动元素的一个属性进行排列。
+	
+	规则可以是左浮动，右浮动，上对齐，下对齐，左右对齐等等，对应规则提取一个属性（宽或高）进行排列。其他的无视掉……
+	
+	清楚浮动的技巧说两个：
+	
+	在子元素的浮动后面加一个空的div，对应的css是clear:both;
+	
+	或者直接用:after伪类。
+	
+	有一个好玩的事情是，float也是浮点数的意思，所以在js中改变css的时候要注意……
+
 - 用过媒体查询，针对移动端的布局吗？
+	
+	注解：
+
+	媒体查询本意是为了让html在不同的设备上效果适应，比如打印机，屏幕等等。
+	
+	然而因为可以通过查询一些属性如宽度和高度来区别的写css，也成为了响应式布局的方案。
+	
+	我个人认为这种现状需要改变。
 
 - 使用 CSS 预处理器吗？喜欢那个？
 		
 		SASS 
 
+	注解：
+	
+	常见的有LESS，SASS，stylus，第一个是用js写的，第二个使用ruby写的，配合compass一同使用，威力无穷！
+
 - 如果需要手动写动画，你认为最小时间间隔是多久，为什么？（阿里）
 
 		多数显示器默认频率是60Hz，即1秒刷新60次，所以理论上最小间隔为1/60＊1000ms ＝ 16.7ms
+		
+	注解：
+	
+	其实人眼看起来才24帧一秒，那么1/24应该也是备选答案之一。
+	
+	实际上很难做到1/60的动画，为了保证浏览器的性能跟得上，一般会使用降帧的办法来进行优化。
 
 
 - display:inline-block 什么时候会显示间隙？(携程)
