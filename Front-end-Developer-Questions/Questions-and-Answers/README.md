@@ -139,7 +139,6 @@
 
 - link 和@import 的区别是？
 
-	
 		（1）link属于XHTML标签，而@import是CSS提供的;
 
 		（2）页面被加载的时，link会同时被加载，而@import引用的CSS会等到页面被加载完再加载;
@@ -673,12 +672,38 @@ HTML5？
 
 -  JavaScript原型，原型链 ? 有什么特点？
 
+        注解：首先应该提到构造函数。
+        我们使用构造函数来快速的生成实例，提高了效率。
+        然而使用的 new 方法并不能共享属性和方法，他们之间是互相独立的。
+        因此js的设计者决定为构造函数设置一个prototupe属性，将实例对象需要共享的属性和方法都放在这个对象里面。
+        这其实就是继承对吧……
+        考虑到js中所有的东西都有对象，那么这个原型实际上也有自己的原型……
+        
+        这就是原型链，原型链的终点Object.prototype。这也就是基础对象的原型。
+        在原型链上，你可以访问一个对象后面的属性，但是如果出现了两个一样的属性，那么更上层的属性会遮蔽下层的属性。
+        可以认为这个过程中，先从原型链的顶部开始访问，找到第一个这样的属性，返回回来。于是后面的就被遮蔽了。
+        
+        最后，查找原型链是非常的耗时的，尽量不要使用这样的方法。
+        另外一个方法是hasOwnProperty，它可以检测属性是在原型链上还是在自身上，它不会遍历原型链，请放心使用。
+
 -  eval是做什么的？ 
 
 		它的功能是把对应的字符串解析成JS代码并运行；
 		应该避免使用eval，不安全，非常耗性能（2次，一次解析成js语句，一次执行）。
+		
+		注解：eval不安全的主要地方在于直接由字符串来解析，因此如果有人不怀好意的进行XSS，你又没有防范，这就遭了……
+		常用eval的地方是将json解析成js代码。
 
 -  null，undefined 的区别？
+
+        注解：在java中，null也是一个对象，但是js的数据类型有原始类型和合成类型，因此单独使用null不太好使……
+        所以在一开始的时候，null表示一个无的对象，而undefined表示一个无的原始值。
+        所以null转为数值时是0，undefined是NaN。
+        null的用法可以作为函数的参数表示这个参数不是对象，或者也可以作为原型链的终点。
+        Object.getPrototypeOf(Object.prototype)
+        // null
+        undefined则是此处有一个值，但是没有定义。
+        所以概括起来说，null表示没有，undefined表示混沌。
 
 -  写一个通用的事件侦听器函数。
 
@@ -769,22 +794,52 @@ HTML5？
 -  介绍js的基本数据类型。
 
 		number,string,boolean,object,undefined
+		
+		注解：上面的少了两个，分别是数组和null。
 	
 -  Javascript如何实现继承？
 
 		通过原型和构造器
+		
+		注解：这个问题上面已经回答过了，两者可以综合使用，将统一的写在原型里，不一样的写在构造器里。
 	
 -  ["1", "2", "3"].map(parseInt) 答案是多少？
 
-		 [1, NaN, NaN] 因为 parseInt 需要两个参数 (val, radix) 但 map 传了 3 个 (element, index, array)
+		[1, NaN, NaN] 因为 parseInt 需要两个参数 (val, radix) 但 map 传了 3 个 (element, index, array)
+		
+		注解：map的用法如下：
+		arr.map(callback[, thisArg])
+		其中callback最多接受三个参数的函数，对于arr中的每个元素都会调用callback一次。
+		thisArg是callback中this关键字引用的对象。
+		
+		function callbackfn(value, index, array1)可使用最多三个参数来声明回调函数。
+        value	数组元素的值。
+        index	数组元素的数字索引。
+        array1	包含该元素的数组对象。
+        
+        所以在callback看来，给parseInt返回的是三个参数。
+		
+		parseInt的用法：
+		parseInt(numString, [radix]) 
+		第一个是需要转换的字符串，第二个是需要设置的进制数，如果没有提供，将会把0x开头的视为十六进制，其余的都是十进制。
+		
+		所以这个题目可以看作是：
+		[parseInt("1", 0), parseInt("2", 1), parseInt("3", 2)]
+		第一个返回一个十进制的1（因为第二个参数是0，看作是没有提供），第二返回NaN，因为第二个参数是1，没有1进制……
+		第三个倒是有二进制，可是3不在二进制里面啊……
+
 
 -  如何创建一个对象? （画出此对象的内存图）
 
-		  function Person(name, age) {
-		    this.name = name;
-		    this.age = age;
-		    this.sing = function() { alert(this.name) } 
-		  } 
+		function Person(name, age) {
+		  this.name = name;
+		  this.age = age;
+		  this.sing = function() { alert(this.name) } 
+		} 
+		
+		注解：这里其实是一个构造函数，既然有了构造函数，肯定还需要构造一下嘛。
+		
+		var me = new Person(kok,xx);
 
 
 -  谈谈This对象的理解。
