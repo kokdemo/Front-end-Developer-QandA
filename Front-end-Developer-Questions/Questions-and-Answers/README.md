@@ -950,6 +950,8 @@ HTML5？
 -  Javascript中，有一个函数，执行时对象查找时，永远不会去查找原型，这个函数是？
   
 		hasOwnProperty
+		
+		注解:这个前面提到过……
 
 -  JSON 的了解？
 		
@@ -960,15 +962,25 @@ HTML5？
 -  js延迟加载的方式有哪些？
 		
 		defer和async、动态创建DOM方式（用得最多）、按需异步载入js
-
+		
+		注解：async是同步方式，defer是时延，在jQuery中有一个专门的deferred对象，用于解决回调函数问题。
+		
+		至于按需异步载入的方法也是修改dom。
 		
 -  ajax 是什么? 
 
+        注解：Asynchronous JavaScript and XML 异步的js和xml加载技术。核心是创建一个XMLHttpRequest对象。
+
 -  同步和异步的区别?
 
+        注解：同步和异步很好区别吧……同步就是一个任务处理完之后再去处理下一个，异步则是同时处理若干任务，打乱了顺序。
+        同步的时效性更好，异步的性能更强。
+
 -  如何解决跨域问题?
-	 
+
 		jsonp、 iframe、window.name、window.postMessage、服务器上设置代理页面
+		
+		
 -  模块化怎么做？
 
 
@@ -991,6 +1003,13 @@ HTML5？
 
 -  AMD（Modules/Asynchronous-Definition）、CMD（Common Module Definition）规范区别？
 
+        注解：AMD 是 RequireJS 在推广过程中对模块定义的规范化产出。
+        CMD 是 SeaJS 在推广过程中对模块定义的规范化产出。
+        
+        1. 对于依赖的模块，AMD 是提前执行，CMD 是延迟执行。不过 RequireJS 从 2.0 开始，也改成可以延迟执行（根据写法不同，处理方式不同）。CMD 推崇 as lazy as possible.
+        2. CMD 推崇依赖就近，AMD 推崇依赖前置。
+        3. AMD 的 API 默认是一个当多个用，CMD 的 API 严格区分，推崇职责单一。
+
 -  异步加载的方式有哪些？
 
 			
@@ -1001,11 +1020,10 @@ HTML5？
 	      (3) 创建script，插入到DOM中，加载完毕后callBack
 	  
 - documen.write和 innerHTML的区别
-			  
-document.write只能重绘整个页面
 
-innerHTML可以重绘页面的一部分
-		  
+        document.write只能重绘整个页面
+        innerHTML可以重绘页面的一部分
+
 
 -  .call() 和 .apply() 的区别？
 
@@ -1025,6 +1043,8 @@ innerHTML可以重绘页面的一部分
 			}
 			
 			add.call(sub,3,1);  
+			
+		注解：两个接受的参数形式不同
 
 -  Jquery与jQuery UI 有啥区别？ 
 
@@ -1034,10 +1054,16 @@ innerHTML可以重绘页面的一部分
 		*jQuery UI则是在jQuery的基础上，利用jQuery的扩展性，设计的插件。
          提供了一些常用的界面元素，诸如对话框、拖动行为、改变大小行为等等
 
+        注解：在这里ps一下，jQueryMobile实在是太烂了,请务必不要使用。
+
 
 -  JQuery的源码看过吗？能不能简单说一下它的实现原理？
 
+        注解：这个问题很大，jquery中有很多好玩的代码，比如核心部分，选择器，属性修改，链式等等
+
 -  jquery 中如何将数组转化为json字符串，然后再转化回来？
+
+        注解：js中有字符串和json转化的函数，转化数组需要写一个循环。
 
 			
 jQuery中没有提供这个功能，所以你需要先编写两个jQuery的扩展：
@@ -1065,6 +1091,7 @@ jQuery中没有提供这个功能，所以你需要先编写两个jQuery的扩�
          for 循环每一次循环都查找了数组 (arr) 的.length 属性，在开始循环的时候设置一个变量来存储这个数字，可以让循环跑得更快： 
          for (var i = size, length = arr.length; i < length; i++) {}
 
+        注解：选择器上，尽量选择原生浏览器就有的，范围少的选择器。
 
 -  JavaScript中的作用域与变量声明提升？ 
 
